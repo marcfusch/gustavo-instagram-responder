@@ -8,6 +8,11 @@ git clone https://github.com/adw0rd/instagrapi
 cd instagrapi
 python setup.py install
 ```
+As well as a special version of the googletranslate api
+```
+pip3 uninstall googletrans                                                                                              pip3 install googletrans==3.1.0a0
+```
+
 After that, clone the script from this repo:
 
 ```
@@ -15,7 +20,7 @@ git clone https://github.com/marcfusch/hidenseek-gustavo-instagram
 cd hidenseek-gustavo-instagram
 ```
 Then, you need to configure the script with your Instagram credentials.
-You will need to modify line 12 and 13 that are:
+You will need to modify those lines:
 ```
 username='YOUR_USERNAME'
 password='YOUR_PASSWORD'
@@ -41,5 +46,4 @@ while True; do {python gustavo.py}; done
 
 
 ## Credits:
-Thanks to @adw0rd for creating instagrapi
-Thanks to Silio for this incredible idea
+Thanks to @adw0rd for creating instagrapi,to @ssut for creating the Google translate API, to @jacebrowning for creating memegen and Silio for this incredible idea
