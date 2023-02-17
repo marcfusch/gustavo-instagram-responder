@@ -19,7 +19,7 @@ def log(message):
     print(str(time.strftime("%H:%M:%S", time.localtime())) + " "+ message)
 
 def get_followers(myselfid):
-    mydict=cl.user_following(myselfid)
+    mydict=cl.user_following(myselfid,False,0)
     L=[]
     for followingid in mydict.keys():
         L.append(int(followingid))
