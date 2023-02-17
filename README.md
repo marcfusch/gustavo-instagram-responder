@@ -1,5 +1,5 @@
-# hidenseek-gustavo-instagram
-Python script that automatically sends Hide n Seek Gustavo meme to untrusted people
+# gustavo-instagram-responder
+Python script that automatically sends a Gustavo meme to untrusted people based on what they are saying.
 
 ## Install process:
 First you need the instagrapi form adword
@@ -16,8 +16,9 @@ pip3 uninstall googletrans                                                      
 After that, clone the script from this repo:
 
 ```
-git clone https://github.com/marcfusch/hidenseek-gustavo-instagram
-cd hidenseek-gustavo-instagram
+cd ..
+git clone https://github.com/marcfusch/gustavo-instagram-responder
+cd gustavo-instagram-responder
 ```
 Then, you need to configure the script with your Instagram credentials.
 You will need to modify those lines:
@@ -34,7 +35,6 @@ python gustavo.py
 
 ## Additional notes
 If you want to use another follower list, it is possible. just set the variable myself to the account you wish to get the followers list from.
-Moreover, if you plan to use another image to respond to untrusted people, you can just change gus.jpg by another jpeg image.
 
 ### In case of frequent crashes:
 Since this bot is still in development, you may encounter crashes throughout it's use.
