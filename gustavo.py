@@ -1,7 +1,7 @@
 """
 @author: marcfusch
 Thanks to adw0rd (for making this project possible)
-Thanks to Silio-Manolo Cordelier for giving me this incredible idea at midnight.
+Thanks to Silio for giving me this incredible idea at midnight.
 """
 
 from instagrapi import Client
