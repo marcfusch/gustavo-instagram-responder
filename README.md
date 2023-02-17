@@ -10,7 +10,8 @@ python setup.py install
 ```
 As well as a special version of the googletranslate api
 ```
-pip3 uninstall googletrans                                                                                              pip3 install googletrans==3.1.0a0
+pip3 uninstall googletrans
+pip3 install googletrans==3.1.0a0
 ```
 
 After that, clone the script from this repo:
