@@ -23,4 +23,4 @@ python gustavo.py
 
 ## Additional notes
 If you want to use another follower list, it is possible. just set the variable myself to the account you wish to get the followers list from.
-Moreover, if you plan to use another image to respond to untrusted people, you can just change gustavo.jpg by another jpeg image.
+Moreover, if you plan to use another image to respond to untrusted people, you can just change gus.jpg by another jpeg image.
