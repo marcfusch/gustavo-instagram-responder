@@ -7,12 +7,15 @@ Thanks to Silio for giving me this incredible idea at midnight.
 from instagrapi import Client
 from instagrapi.exceptions import LoginRequired
 import time
+from googletrans import Translator
+import requests
 
-photo_path = 'gus.jpg'
+photo_path = 'gusmeme.jpg'
 username='YOUR_USERNAME'
 password='YOUR_PASSWORD'
 
 cl = Client()
+tr=Translator()
 
 def log(message):
     print(str(time.strftime("%H:%M:%S", time.localtime())) + " "+ message)
@@ -33,10 +36,13 @@ def get_followers(myselfid):
 
 def sanitize(inputstr):
     direcstring=str(inputstr[0])
-    L=direcstring.split(',')
+    L=direcstring.split(', ')
+    X = [i for i in L if i.startswith('text=')]
+    X=X[0].split('=')
     L=L[1].split('=')
+    message=str(X[1])
     newmesid=int(L[1])
-    return(newmesid)
+    return(newmesid,str(message[1:-1]))
     pass
 
 def unread_to_userid():
@@ -47,14 +53,33 @@ def unread_to_userid():
     if direct_mainbox:
         return(sanitize(direct_mainbox))
     else:
-        return(0)
+        return(0,"")
     pass
 
-def send_message(scammerid):
+
+def send_message(scammerid,message):
+    create_gustavo(message)
     cl.direct_send_photo(photo_path, user_ids=[scammerid])
     pass
 
-
+def create_gustavo(trans):
+    trans=tr.translate(trans,dest='ko',src='fr')
+    trans=tr.translate(trans.text,dest='de',src='ko')
+    trans=tr.translate(trans.text,dest='la',src='de')
+    trans=tr.translate(trans.text,dest='en',src='la')
+    trans=tr.translate(trans.text,dest='fr',src='en')
+    trans=trans.text
+    
+    regex=['@','#','$','*','&','?',')','(','!','"',"'"]
+    for i in regex:
+        trans=trans.replace(i,"")
+    
+    log("Translated reponse: "+str(trans))
+    
+    url="https://api.memegen.link/images/custom/_/"+trans+".jpg?background=https://marcfusch.com/img/gus.png"
+    r= requests.get(url, allow_redirects=True)
+    open(photo_path,'wb').write(r.content)
+    pass
 
 cl.set_locale('fr_FR')
 cl.set_timezone_offset(1 * 60 * 60)
@@ -68,22 +93,22 @@ myselfid=cl.user_id_from_username(username)
 log("Getting followers from user: "+ username)
 lstfollowers=get_followers(myselfid)
 oldmesid=0
-newmesid=unread_to_userid()
-
+newmesid,message=unread_to_userid()
 
 while True:
-    for i in range(50):
+    for i in range(30):
         try:
             if  newmesid==0 or newmesid==oldmesid or newmesid==myselfid:
                 log("No unread messages")
-                newmesid=unread_to_userid()
+                newmesid,message=unread_to_userid()
             else:
                 log("New activity from user: " + str(newmesid))
                 if newmesid in lstfollowers:
                     log(str(newmesid)+" is a follower")
                 else:
                     log(str(newmesid)+" isnt a follower")
-                    send_message(newmesid)
+                    log(str(newmesid)+" says: " +message)
+                    send_message(newmesid,message)
                     log("Gustavo sent!")
                     newmesid=0
                 oldmesid=newmesid
