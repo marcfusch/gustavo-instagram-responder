@@ -63,7 +63,7 @@ newmesid=unread_to_userid()
 
 while True:
     for i in range(50):
-        if  newmesid==0 or newmesid==oldmesid:
+        if  newmesid==0 or newmesid==oldmesid or newmesid==myselfid:
             log("No unread messages")
             newmesid=unread_to_userid()
         else:
