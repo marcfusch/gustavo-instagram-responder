@@ -8,6 +8,12 @@ git clone https://github.com/adw0rd/instagrapi
 cd instagrapi
 python setup.py install
 ```
+After that, clone the script from this repo:
+
+```
+git clone https://github.com/marcfusch/hidenseek-gustavo-instagram
+cd hidenseek-gustavo-instagram
+```
 Then, you need to configure the script with your Instagram credentials.
 You will need to modify line 12 and 13 that are:
 ```
