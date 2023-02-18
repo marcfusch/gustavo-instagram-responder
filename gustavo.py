@@ -1,7 +1,7 @@
 """
 @author: marcfusch
-Thanks to adw0rd (for making this project possible)
-Thanks to Silio for giving me this incredible idea at midnight.
+Thanks to @adw0rd for creating instagrapi,to @ssut for creating the Google translate API,
+to @jacebrowning for creating memegen and Silio for this incredible idea
 """
 
 from instagrapi import Client
@@ -63,13 +63,13 @@ def send_message(scammerid,message):
     pass
 
 def create_gustavo(trans):
-    trans=tr.translate(trans,dest='ko',src='fr')
-    trans=tr.translate(trans.text,dest='de',src='ko')
-    trans=tr.translate(trans.text,dest='la',src='de')
-    trans=tr.translate(trans.text,dest='en',src='la')
-    trans=tr.translate(trans.text,dest='fr',src='en')
-    trans=trans.text
+    translang=['fr','ko','de','la','en','fr']
     
+    trans=tr.translate(trans,dest=translang[0],src=translang[0])
+    for i in range(len(translang)-1):
+        trans=tr.translate(trans.text,dest=translang[i+1],src=translang[i])
+    trans=trans.text
+
     regex=['@','#','$','*','&','?',')','(','!','"',"'"]
     for i in regex:
         trans=trans.replace(i,"")
@@ -84,8 +84,7 @@ def create_gustavo(trans):
 cl.set_locale('fr_FR')
 cl.set_timezone_offset(1 * 60 * 60)
 cl.login(username,password)
-print("Login succesfull")
-
+log("Login succesfull")
 
 log("Getting your account id")
 myselfid=cl.user_id_from_username(username)
