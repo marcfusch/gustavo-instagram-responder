@@ -34,17 +34,13 @@ You are now ready to run the script
 python gustavo.py
 ```
 
-## Additional notes
-If you want to use another follower list, it is possible. just set the variable myself to the account you wish to get the followers list from.
-
 ### In case of frequent crashes:
 Since this bot is still in development, you may encounter crashes throughout it's use.
 You can always run the script like this:
-
 ```
 while True; do {python gustavo.py}; done
 ```
-
+But be careful, you may add a specific timer or modify the script to handle logging exceptions better than what is present, because this can lead to your account being temporarly suspended / banned.
 
 ## Credits:
 Thanks to @adw0rd for creating instagrapi,to @ssut for creating the Google translate API, to @jacebrowning for creating memegen and Silio for this incredible idea
