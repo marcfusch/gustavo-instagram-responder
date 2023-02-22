@@ -1,5 +1,5 @@
 # gustavo-instagram-responder
-Python script that automatically sends a Gustavo meme to untrusted people based on what they are saying.
+Python script that automatically sends a Gustavo meme to untrusted people based on what they are saying. First Gustavo will be the Hide and Seek meme, then will depends on their reply.
 
 ## Install process:
 First you need the instagrapi form adword
