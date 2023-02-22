@@ -61,9 +61,13 @@ def send_message(scammerid,message):
     create_gustavo(message)
     cl.direct_send_photo(photo_path, user_ids=[scammerid])
     pass
+    
+def send_message1(scammerid):
+    cl.direct_send_photo(photo_path, user_ids=[scammerid])
+    pass
 
 def create_gustavo(trans):
-    translang=['fr','ko','de','la','en','fr']
+    translang=['fr','ko','ja','ht','la','en','fr']
     
     trans=tr.translate(trans,dest=translang[0],src=translang[0])
     for i in range(len(translang)-1):
@@ -83,7 +87,7 @@ def create_gustavo(trans):
 
 cl.set_locale('fr_FR')
 cl.set_timezone_offset(1 * 60 * 60)
-cl.login(username,password)
+cl.login(username, password)
 log("Login succesfull")
 
 log("Getting your account id")
@@ -93,7 +97,7 @@ log("Getting followers from user: "+ username)
 lstfollowers=get_followers(myselfid)
 oldmesid=0
 newmesid,message=unread_to_userid()
-
+lstsent=[]
 while True:
     for i in range(30):
         try:
@@ -107,9 +111,17 @@ while True:
                 else:
                     log(str(newmesid)+" isnt a follower")
                     log(str(newmesid)+" says: " +message)
-                    send_message(newmesid,message)
-                    log("Gustavo sent!")
-                    newmesid=0
+                    if newmesid in lstsent:
+                        photo_path = 'gustrans.jpg'
+                        send_message(newmesid,message)
+                        log("Gustavo sent!")
+                        newmesid=0
+                    else:
+                        photo_path = 'gusmeme.jpg'
+                        send_message1(newmesid)
+                        lstsent.append(newmesid)
+                        log("Gustavo sent!")
+                        newmesid=0
                 oldmesid=newmesid
             time.sleep(1)
         except LoginRequired:
