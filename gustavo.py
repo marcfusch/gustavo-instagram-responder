@@ -61,14 +61,14 @@ def send_message(scammerid,message):
     create_gustavo(message)
     cl.direct_send_photo(photo_path, user_ids=[scammerid])
     pass
-    
-def send_message1(scammerid):
+
+def send_first_message(scammerid):
     cl.direct_send_photo(photo_path, user_ids=[scammerid])
     pass
 
 def create_gustavo(trans):
-    translang=['fr','ko','ja','ht','la','en','fr']
-    
+    translang=['fr','ko','ja','ht','la','en','fr'] #You can change the translation order/language to your liking
+
     trans=tr.translate(trans,dest=translang[0],src=translang[0])
     for i in range(len(translang)-1):
         trans=tr.translate(trans.text,dest=translang[i+1],src=translang[i])
@@ -77,9 +77,8 @@ def create_gustavo(trans):
     regex=['@','#','$','*','&','?',')','(','!','"',"'"]
     for i in regex:
         trans=trans.replace(i,"")
-    
+
     log("Translated reponse: "+str(trans))
-    
     url="https://api.memegen.link/images/custom/_/"+trans+".jpg?background=https://marcfusch.com/img/gus.png"
     r= requests.get(url, allow_redirects=True)
     open(photo_path,'wb').write(r.content)
@@ -98,10 +97,11 @@ lstfollowers=get_followers(myselfid)
 oldmesid=0
 newmesid,message=unread_to_userid()
 lstsent=[]
+
 while True:
     for i in range(30):
         try:
-            if  newmesid==0 or newmesid==oldmesid or newmesid==myselfid:
+            if newmesid in [0,oldmesid,myselfid]:
                 log("No unread messages")
                 newmesid,message=unread_to_userid()
             else:
@@ -112,21 +112,22 @@ while True:
                     log(str(newmesid)+" isnt a follower")
                     log(str(newmesid)+" says: " +message)
                     if newmesid in lstsent:
+                        log("First gustavo already sent! Now sending a custom gustavo...")
                         photo_path = 'gustrans.jpg'
                         send_message(newmesid,message)
-                        log("Gustavo sent!")
-                        newmesid=0
                     else:
+                        log("No pre-existing conversation, sending first gustavo...")
                         photo_path = 'gusmeme.jpg'
-                        send_message1(newmesid)
+                        send_first_message(newmesid)
                         lstsent.append(newmesid)
-                        log("Gustavo sent!")
-                        newmesid=0
+                    log("Gustavo sent!")
+                    newmesid=0
+
                 oldmesid=newmesid
             time.sleep(1)
         except LoginRequired:
             cl.relogin()
-      
+
     log("Refreshing followers list")
     lstfollowers=get_followers(myselfid)
     pass
